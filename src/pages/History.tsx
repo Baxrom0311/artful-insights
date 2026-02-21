@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AppLayout from '@/components/layout/AppLayout';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { evaluationsApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Loader2, Star, ImagePlus, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -16,6 +17,7 @@ const getGradeColor = (grade: string) => {
 };
 
 const History = () => {
+  const { t, locale } = useLanguage();
   const [evaluations, setEvaluations] = useState<EvaluationListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -40,12 +42,12 @@ const History = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Evaluation History</h1>
-            <p className="mt-1 text-muted-foreground">{total} total evaluations</p>
+            <h1 className="text-3xl font-bold">{t('history:title')}</h1>
+            <p className="mt-1 text-muted-foreground">{t('history:total', { count: total })}</p>
           </div>
           <Link to="/upload">
             <Button className="gradient-primary border-0 text-primary-foreground">
-              <ImagePlus className="mr-2 h-4 w-4" /> Upload New
+              <ImagePlus className="mr-2 h-4 w-4" /> {t('history:upload_new')}
             </Button>
           </Link>
         </div>
@@ -57,9 +59,9 @@ const History = () => {
         ) : evaluations.length === 0 ? (
           <div className="flex flex-col items-center gap-4 py-20 text-muted-foreground">
             <Star className="h-14 w-14" />
-            <p className="text-lg">No evaluations yet</p>
+            <p className="text-lg">{t('history:empty')}</p>
             <Link to="/upload">
-              <Button>Upload Your First Artwork</Button>
+              <Button>{t('history:first_upload')}</Button>
             </Link>
           </div>
         ) : (
@@ -67,10 +69,10 @@ const History = () => {
             {/* Table */}
             <div className="overflow-hidden rounded-xl border border-border bg-card shadow-card">
               <div className="hidden grid-cols-[1fr_100px_60px_120px] gap-4 border-b border-border px-5 py-3 text-sm font-medium text-muted-foreground md:grid">
-                <span>Artwork</span>
-                <span className="text-right">Score</span>
-                <span className="text-center">Grade</span>
-                <span className="text-right">Date</span>
+                <span>{t('history:col.artwork')}</span>
+                <span className="text-right">{t('history:col.score')}</span>
+                <span className="text-center">{t('history:col.grade')}</span>
+                <span className="text-right">{t('history:col.date')}</span>
               </div>
               <div className="divide-y divide-border">
                 {evaluations.map((ev, i) => (
@@ -94,7 +96,7 @@ const History = () => {
                         </span>
                       </div>
                       <span className="text-right text-sm text-muted-foreground">
-                        {new Date(ev.created_at).toLocaleDateString()}
+                        {new Date(ev.created_at).toLocaleDateString(locale)}
                       </span>
                     </Link>
                   </motion.div>
@@ -107,7 +109,7 @@ const History = () => {
               <Button variant="outline" size="sm" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <span className="text-sm text-muted-foreground">Page {page}</span>
+              <span className="text-sm text-muted-foreground">{t('history:page', { page })}</span>
               <Button variant="outline" size="sm" disabled={!hasNext} onClick={() => setPage((p) => p + 1)}>
                 <ChevronRight className="h-4 w-4" />
               </Button>

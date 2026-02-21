@@ -1,0 +1,23 @@
+{
+  "title": "Asarni Yuklash",
+  "subtitle": "Asaringizni AI orqali baholashga yuboring",
+  "error": {
+    "type": "Faqat JPG, PNG, WEBP formatlariga ruxsat beriladi",
+    "size": "Fayl hajmi 10MB dan kichik bo‘lishi kerak",
+    "credits": "Kredit yetarli emas. Kreditni to‘ldiring.",
+    "failed": "Yuklash amalga oshmadi"
+  },
+  "drop": {
+    "title": "Asarni shu yerga olib kelib tashlang",
+    "subtitle": "yoki tanlash uchun bosing · JPG, PNG, WEBP · Maks 10MB"
+  },
+  "title_label": "Sarlavha *",
+  "title_placeholder": "Asaringizga nom bering",
+  "description_label": "Tavsif",
+  "description_placeholder": "Asar haqida qisqacha yozing (ixtiyoriy)",
+  "language_label": "Baholash tili",
+  "scheme_label": "Baholash yo‘nalishi",
+  "credit_note": "Bu baholash uchun 1 kredit yechiladi",
+  "loading": "Yuklanmoqda va baholanmoqda...",
+  "submit": "Asarni Baholash"
+}

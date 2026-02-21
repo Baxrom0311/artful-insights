@@ -1,0 +1,9 @@
+{
+  "dashboard": "Panel",
+  "upload": "Yuklash",
+  "history": "Tarix",
+  "profile": "Profil",
+  "logout": "Chiqish",
+  "credits": "{count} kredit",
+  "language": "Til"
+}

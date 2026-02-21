@@ -1,0 +1,14 @@
+{
+  "title": "Evaluation History",
+  "total": "{count} total evaluations",
+  "upload_new": "Upload New",
+  "empty": "No evaluations yet",
+  "first_upload": "Upload Your First Artwork",
+  "col": {
+    "artwork": "Artwork",
+    "score": "Score",
+    "grade": "Grade",
+    "date": "Date"
+  },
+  "page": "Page {page}"
+}

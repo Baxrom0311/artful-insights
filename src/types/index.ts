@@ -43,6 +43,19 @@ export interface RegisterData {
   last_name?: string;
 }
 
+export type AppLanguage = 'uz' | 'en' | 'ru';
+
+export type EvaluationScheme =
+  | 'art_history'
+  | 'painting'
+  | 'design_cg_photo'
+  | 'design_ad_graphics'
+  | 'design_interior_industrial'
+  | 'design_fashion_textile'
+  | 'applied_art'
+  | 'sculpture'
+  | 'graphics';
+
 export type ArtworkStatus = 'pending' | 'processing' | 'completed' | 'failed';
 
 export interface ArtworkListItem {
@@ -50,6 +63,7 @@ export interface ArtworkListItem {
   title: string;
   user: string;
   image: string;
+  evaluation_scheme: EvaluationScheme;
   status: ArtworkStatus;
   status_display: string;
   format: string;
@@ -63,6 +77,7 @@ export interface ArtworkDetail {
   title: string;
   description: string;
   image: string;
+  evaluation_scheme: EvaluationScheme;
   image_url: string | null;
   file_size: number;
   width: number;
@@ -102,6 +117,38 @@ export interface EvaluationHistory {
   created_at: string;
 }
 
+export type RubricLevel = 'full' | 'partial' | 'none';
+
+export interface OfficialRubricCriterion {
+  criterion_key: string;
+  level: RubricLevel;
+  awarded_score: number;
+  max_score: number;
+  feedback: string;
+}
+
+export interface OfficialRubricSection {
+  section_key: string;
+  section_score: number;
+  section_max_score: number;
+  criteria: OfficialRubricCriterion[];
+}
+
+export interface OfficialRubric {
+  scheme: EvaluationScheme;
+  max_score: number;
+  total_score: number;
+  sections: OfficialRubricSection[];
+}
+
+export interface EvaluationRawResponse {
+  scores?: Record<string, number>;
+  feedback?: Record<string, unknown>;
+  summary?: string;
+  grade?: string;
+  official_rubric?: OfficialRubric;
+}
+
 export interface EvaluationListItem {
   id: number;
   artwork_id: number;
@@ -114,6 +161,7 @@ export interface EvaluationListItem {
 
 export interface EvaluationDetail {
   id: number;
+  artwork_id: number;
   artwork_title: string;
   artwork_image: string;
   llm_provider: string;
@@ -122,7 +170,7 @@ export interface EvaluationDetail {
   total_score: string;
   summary: string;
   grade: string;
-  raw_response: unknown;
+  raw_response: EvaluationRawResponse | null;
   processing_time: string;
   api_cost: string | null;
   created_at: string;

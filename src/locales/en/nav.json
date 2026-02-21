@@ -1,0 +1,9 @@
+{
+  "dashboard": "Dashboard",
+  "upload": "Upload",
+  "history": "History",
+  "profile": "Profile",
+  "logout": "Logout",
+  "credits": "{count} credits",
+  "language": "Language"
+}

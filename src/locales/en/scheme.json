@@ -1,0 +1,11 @@
+{
+  "painting": "Painting",
+  "graphics": "Graphics",
+  "sculpture": "Sculpture",
+  "applied_art": "Applied Art",
+  "design_cg_photo": "Design: Computer Graphics / Photo Art",
+  "design_ad_graphics": "Design: Advertising & Applied Graphics",
+  "design_interior_industrial": "Design: Interior / Industrial Design",
+  "design_fashion_textile": "Design: Fashion & Textile",
+  "art_history": "Art History (written rubric)"
+}

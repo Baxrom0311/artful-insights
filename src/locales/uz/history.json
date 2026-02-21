@@ -1,0 +1,14 @@
+{
+  "title": "Baholashlar Tarixi",
+  "total": "{count} ta jami baholash",
+  "upload_new": "Yangi Asar",
+  "empty": "Hali baholash yo‘q",
+  "first_upload": "Birinchi Asarni Yuklash",
+  "col": {
+    "artwork": "Asar",
+    "score": "Ball",
+    "grade": "Baho",
+    "date": "Sana"
+  },
+  "page": "{page}-sahifa"
+}

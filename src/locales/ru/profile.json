@@ -1,0 +1,25 @@
+{
+  "title": "Профиль",
+  "info": "Личная информация",
+  "username": "Username",
+  "email": "Email",
+  "first_name": "Имя",
+  "last_name": "Фамилия",
+  "bio": "О себе",
+  "bio_placeholder": "Расскажите о себе...",
+  "save": "Сохранить изменения",
+  "credits": "Кредиты",
+  "credit_note": "Одна оценка стоит 1 кредит",
+  "password": "Смена пароля",
+  "current_password": "Текущий пароль",
+  "new_password": "Новый пароль",
+  "confirm_password": "Подтвердите пароль",
+  "update_password": "Обновить пароль",
+  "toast": {
+    "saved": "Профиль обновлен",
+    "save_error": "Не удалось обновить профиль",
+    "pw_mismatch": "Пароли не совпадают",
+    "pw_saved": "Пароль обновлен",
+    "pw_error": "Не удалось обновить пароль"
+  }
+}

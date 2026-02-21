@@ -1,0 +1,25 @@
+{
+  "title": "Profile",
+  "info": "Personal Info",
+  "username": "Username",
+  "email": "Email",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "bio": "Bio",
+  "bio_placeholder": "Tell us about yourself...",
+  "save": "Save Changes",
+  "credits": "Credits",
+  "credit_note": "Each evaluation costs 1 credit",
+  "password": "Change Password",
+  "current_password": "Current Password",
+  "new_password": "New Password",
+  "confirm_password": "Confirm New Password",
+  "update_password": "Update Password",
+  "toast": {
+    "saved": "Profile updated",
+    "save_error": "Failed to update profile",
+    "pw_mismatch": "Passwords do not match",
+    "pw_saved": "Password changed",
+    "pw_error": "Failed to change password"
+  }
+}

@@ -1,6 +1,7 @@
 import { ChevronDown, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { CategoryScore } from '@/types';
 
 const getScoreBg = (score: number) => {
@@ -12,6 +13,7 @@ const getScoreBg = (score: number) => {
 };
 
 const FeedbackCard = ({ data }: { data: CategoryScore }) => {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const score = parseFloat(data.score || '0');
 
@@ -44,7 +46,7 @@ const FeedbackCard = ({ data }: { data: CategoryScore }) => {
 
               {data.strengths?.length > 0 && (
                 <div>
-                  <h4 className="mb-2 text-sm font-semibold text-success">Strengths</h4>
+                  <h4 className="mb-2 text-sm font-semibold text-success">{t('feedback:strengths')}</h4>
                   <ul className="space-y-1.5">
                     {data.strengths.map((s, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-card-foreground">
@@ -58,7 +60,7 @@ const FeedbackCard = ({ data }: { data: CategoryScore }) => {
 
               {data.improvements?.length > 0 && (
                 <div>
-                  <h4 className="mb-2 text-sm font-semibold text-secondary">Improvements</h4>
+                  <h4 className="mb-2 text-sm font-semibold text-secondary">{t('feedback:improvements')}</h4>
                   <ul className="space-y-1.5">
                     {data.improvements.map((s, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-card-foreground">

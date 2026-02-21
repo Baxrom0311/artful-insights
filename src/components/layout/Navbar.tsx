@@ -1,11 +1,20 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Palette, Upload, BarChart3, History, User, LogOut, Menu, X, Coins } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import type { AppLanguage } from '@/types';
+
+const LANGUAGE_OPTIONS: Array<{ value: AppLanguage; label: string }> = [
+  { value: 'uz', label: "UZ" },
+  { value: 'en', label: 'EN' },
+  { value: 'ru', label: 'RU' },
+];
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,11 +24,13 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  const handleLanguageChange = (value: AppLanguage) => setLanguage(value);
+
   const links = [
-    { to: '/dashboard', label: 'Dashboard', icon: BarChart3 },
-    { to: '/upload', label: 'Upload', icon: Upload },
-    { to: '/history', label: 'History', icon: History },
-    { to: '/profile', label: 'Profile', icon: User },
+    { to: '/dashboard', label: t('nav:dashboard'), icon: BarChart3 },
+    { to: '/upload', label: t('nav:upload'), icon: Upload },
+    { to: '/history', label: t('nav:history'), icon: History },
+    { to: '/profile', label: t('nav:profile'), icon: User },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -53,15 +64,28 @@ const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
+          <label className="sr-only" htmlFor="desktop-language">{t('nav:language')}</label>
+          <select
+            id="desktop-language"
+            value={language}
+            onChange={(e) => handleLanguageChange(e.target.value as AppLanguage)}
+            className="h-9 rounded-md border border-input bg-background px-2 text-xs font-semibold text-foreground"
+          >
+            {LANGUAGE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           {user && (
             <div className="flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground">
               <Coins className="h-4 w-4" />
-              {user.credits}
+              {t('nav:credits', { count: user.credits })}
             </div>
           )}
           <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground">
             <LogOut className="mr-1.5 h-4 w-4" />
-            Logout
+            {t('nav:logout')}
           </Button>
         </div>
 
@@ -87,12 +111,29 @@ const Navbar = () => {
               {label}
             </Link>
           ))}
+          <div className="mt-3 rounded-lg border border-border p-3">
+            <label htmlFor="mobile-language" className="mb-1 block text-xs font-medium uppercase text-muted-foreground">
+              {t('nav:language')}
+            </label>
+            <select
+              id="mobile-language"
+              value={language}
+              onChange={(e) => handleLanguageChange(e.target.value as AppLanguage)}
+              className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground"
+            >
+              {LANGUAGE_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.value.toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="mt-2 flex items-center justify-between border-t border-border pt-3">
             <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Coins className="h-4 w-4" /> {user?.credits ?? 0} credits
+              <Coins className="h-4 w-4" /> {t('nav:credits', { count: user?.credits ?? 0 })}
             </div>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
-              <LogOut className="mr-1.5 h-4 w-4" /> Logout
+              <LogOut className="mr-1.5 h-4 w-4" /> {t('nav:logout')}
             </Button>
           </div>
         </div>

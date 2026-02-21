@@ -1,0 +1,9 @@
+{
+  "dashboard": "Панель",
+  "upload": "Загрузка",
+  "history": "История",
+  "profile": "Профиль",
+  "logout": "Выход",
+  "credits": "{count} кредитов",
+  "language": "Язык"
+}

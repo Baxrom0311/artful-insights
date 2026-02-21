@@ -1,0 +1,15 @@
+{
+  "welcome": "Welcome back",
+  "overview": "Here is an overview of your evaluations",
+  "upload": "Upload Artwork",
+  "stats": {
+    "total_artworks": "Total Artworks",
+    "average_score": "Average Score",
+    "highest_score": "Best Score",
+    "credits_remaining": "Credits Left"
+  },
+  "recent": "Recent Evaluations",
+  "view_all": "View all",
+  "empty": "No evaluations yet",
+  "first_upload": "Upload your first artwork"
+}

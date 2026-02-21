@@ -1,0 +1,15 @@
+{
+  "welcome": "Xush kelibsiz",
+  "overview": "Baholashlaringiz bo‘yicha umumiy ko‘rinish",
+  "upload": "Asar Yuklash",
+  "stats": {
+    "total_artworks": "Jami asarlar",
+    "average_score": "O'rtacha ball",
+    "highest_score": "Eng yuqori ball",
+    "credits_remaining": "Qolgan kredit"
+  },
+  "recent": "So‘nggi baholashlar",
+  "view_all": "Barchasini ko‘rish",
+  "empty": "Hali baholash yo‘q",
+  "first_upload": "Birinchi asarni yuklash"
+}

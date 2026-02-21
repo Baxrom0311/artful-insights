@@ -1,0 +1,25 @@
+{
+  "title": "Profil",
+  "info": "Shaxsiy ma'lumot",
+  "username": "Username",
+  "email": "Email",
+  "first_name": "Ism",
+  "last_name": "Familiya",
+  "bio": "Bio",
+  "bio_placeholder": "O‘zingiz haqingizda yozing...",
+  "save": "O'zgarishlarni saqlash",
+  "credits": "Kreditlar",
+  "credit_note": "Har bir baholash 1 kredit",
+  "password": "Parolni yangilash",
+  "current_password": "Joriy parol",
+  "new_password": "Yangi parol",
+  "confirm_password": "Yangi parolni tasdiqlang",
+  "update_password": "Parolni Yangilash",
+  "toast": {
+    "saved": "Profil yangilandi",
+    "save_error": "Profilni yangilab bo‘lmadi",
+    "pw_mismatch": "Parollar mos emas",
+    "pw_saved": "Parol yangilandi",
+    "pw_error": "Parolni yangilab bo‘lmadi"
+  }
+}

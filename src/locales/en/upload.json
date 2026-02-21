@@ -1,0 +1,23 @@
+{
+  "title": "Upload Artwork",
+  "subtitle": "Upload your artwork for AI-powered evaluation",
+  "error": {
+    "type": "Only JPG, PNG, WEBP allowed",
+    "size": "File must be under 10MB",
+    "credits": "Insufficient credits. Please add more credits.",
+    "failed": "Upload failed"
+  },
+  "drop": {
+    "title": "Drag & drop your artwork",
+    "subtitle": "or click to browse · JPG, PNG, WEBP · Max 10MB"
+  },
+  "title_label": "Title *",
+  "title_placeholder": "Give your artwork a title",
+  "description_label": "Description",
+  "description_placeholder": "Describe your artwork (optional)",
+  "language_label": "Evaluation Language",
+  "scheme_label": "Evaluation Scheme",
+  "credit_note": "This evaluation will use 1 credit",
+  "loading": "Uploading & Evaluating...",
+  "submit": "Evaluate Artwork"
+}

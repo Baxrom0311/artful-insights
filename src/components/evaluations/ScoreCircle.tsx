@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ScoreCircleProps {
   score: number;
@@ -23,6 +24,7 @@ const getStrokeColor = (score: number) => {
 };
 
 const ScoreCircle = ({ score, grade, size = 180 }: ScoreCircleProps) => {
+  const { t } = useLanguage();
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (score / 100) * circumference;
@@ -54,7 +56,7 @@ const ScoreCircle = ({ score, grade, size = 180 }: ScoreCircleProps) => {
         >
           {score}
         </motion.span>
-        <span className="text-sm font-medium text-muted-foreground">Grade: {grade}</span>
+        <span className="text-sm font-medium text-muted-foreground">{t('score:grade', { grade })}</span>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { CategoryScore } from '@/types';
 
 interface CategoryChartProps {
@@ -6,6 +7,7 @@ interface CategoryChartProps {
 }
 
 const CategoryChart = ({ scores }: CategoryChartProps) => {
+  const { t } = useLanguage();
   const data = scores.map((s) => ({
     category: s.category.name,
     score: parseFloat(s.score || '0'),
@@ -26,7 +28,7 @@ const CategoryChart = ({ scores }: CategoryChartProps) => {
           tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
         />
         <Radar
-          name="Score"
+          name={t('evaluation:score')}
           dataKey="score"
           stroke="hsl(var(--primary))"
           fill="hsl(var(--primary))"
