@@ -4,6 +4,6 @@
   "history": "History",
   "profile": "Profile",
   "logout": "Logout",
-  "credits": "{count} credits",
+  "credits": "{{count}} credits",
   "language": "Language"
 }

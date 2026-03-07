@@ -132,7 +132,7 @@ const EvaluationResults = () => {
 
   useEffect(() => {
     if (!id) return;
-    evaluationsApi.get(id).then((r) => setEvaluation(r.data)).catch(() => navigate('/history')).finally(() => setLoading(false));
+    evaluationsApi.get(id).then((r) => setEvaluation(r.data)).catch(() => navigate('/dashboard')).finally(() => setLoading(false));
   }, [id, navigate]);
 
   const handleReEval = async () => {
@@ -140,7 +140,7 @@ const EvaluationResults = () => {
     setReEvalLoading(true);
     try {
       await artworksApi.reEvaluate(String(evaluation.artwork_id), language);
-      navigate('/history');
+      navigate('/dashboard');
     } catch {
       setReEvalLoading(false);
     }

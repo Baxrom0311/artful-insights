@@ -4,6 +4,6 @@
   "history": "Tarix",
   "profile": "Profil",
   "logout": "Chiqish",
-  "credits": "{count} kredit",
+  "credits": "{{count}} kredit",
   "language": "Til"
 }

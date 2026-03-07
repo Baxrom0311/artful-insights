@@ -1,6 +1,6 @@
 {
   "title": "Baholashlar Tarixi",
-  "total": "{count} ta jami baholash",
+  "total": "{{count}} ta jami baholash",
   "upload_new": "Yangi Asar",
   "empty": "Hali baholash yo‘q",
   "first_upload": "Birinchi Asarni Yuklash",
@@ -10,5 +10,5 @@
     "grade": "Baho",
     "date": "Sana"
   },
-  "page": "{page}-sahifa"
+  "page": "{{page}}-sahifa"
 }

@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { authApi, evaluationsApi } from '@/lib/api';
 import AppLayout from '@/components/layout/AppLayout';
 import { motion } from 'framer-motion';
-import { ImagePlus, TrendingUp, Star, Coins, ArrowRight } from 'lucide-react';
+import { ImagePlus, TrendingUp, Star, Coins } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { UserStats, EvaluationListItem } from '@/types';
 
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     authApi.getStats().then((r) => setStats(r.data)).catch(() => {});
-    evaluationsApi.list(1, 5).then((r) => setRecent(r.data.results)).catch(() => {});
+    evaluationsApi.list(1, 8).then((r) => setRecent(r.data.results)).catch(() => {});
   }, []);
 
   const getStatValue = (key: string) => {
@@ -90,9 +90,7 @@ const Dashboard = () => {
         <div className="rounded-xl border border-border bg-card shadow-card">
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
             <h2 className="text-lg font-semibold text-card-foreground">{t('dashboard:recent')}</h2>
-            <Link to="/history" className="flex items-center gap-1 text-sm font-medium text-primary hover:underline">
-              {t('dashboard:view_all')} <ArrowRight className="h-4 w-4" />
-            </Link>
+            <span className="text-sm text-muted-foreground">{recent.length}</span>
           </div>
           {recent.length === 0 ? (
             <div className="flex flex-col items-center gap-3 py-12 text-muted-foreground">

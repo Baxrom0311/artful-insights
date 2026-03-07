@@ -86,7 +86,7 @@ const Upload = () => {
       const poll = async () => {
         const { data: artwork } = await artworksApi.get(String(data.id));
         if (artwork.status === 'completed' || artwork.status === 'failed') {
-          navigate('/history');
+          navigate('/dashboard');
         } else {
           setTimeout(poll, 2000);
         }

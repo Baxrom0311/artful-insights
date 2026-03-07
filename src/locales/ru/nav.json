@@ -4,6 +4,6 @@
   "history": "История",
   "profile": "Профиль",
   "logout": "Выход",
-  "credits": "{count} кредитов",
+  "credits": "{{count}} кредитов",
   "language": "Язык"
 }
