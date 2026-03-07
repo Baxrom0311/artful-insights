@@ -17,6 +17,8 @@ import i18n from '@/lib/i18n';
 import { DEFAULT_LANGUAGE, normalizeLanguage } from '@/lib/language';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const ACCESS_TOKEN_KEY = 'access_token';
+const REFRESH_TOKEN_KEY = 'refresh_token';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -26,8 +28,48 @@ export const api = axios.create({
 const getCurrentLanguage = (): AppLanguage =>
   normalizeLanguage(i18n.resolvedLanguage || i18n.language || DEFAULT_LANGUAGE);
 
+type RefreshResponse = {
+  access: string;
+  refresh?: string;
+};
+
+let refreshRequest: Promise<string> | null = null;
+
+const clearStoredTokens = () => {
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
+  localStorage.removeItem(REFRESH_TOKEN_KEY);
+};
+
+const redirectToLogin = () => {
+  clearStoredTokens();
+  if (window.location.pathname !== '/login') {
+    window.location.assign('/login');
+  }
+};
+
+const refreshAccessToken = async (): Promise<string> => {
+  if (!refreshRequest) {
+    refreshRequest = axios
+      .post<RefreshResponse>(`${API_BASE_URL}/api/v1/auth/refresh/`, {
+        refresh: localStorage.getItem(REFRESH_TOKEN_KEY),
+      })
+      .then(({ data }) => {
+        localStorage.setItem(ACCESS_TOKEN_KEY, data.access);
+        if (data.refresh) {
+          localStorage.setItem(REFRESH_TOKEN_KEY, data.refresh);
+        }
+        return data.access;
+      })
+      .finally(() => {
+        refreshRequest = null;
+      });
+  }
+
+  return refreshRequest;
+};
+
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -39,23 +81,32 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   async (error) => {
-    const original = error.config;
-    if (error.response?.status === 401 && !original._retry) {
+    const original = error.config as (typeof error.config & { _retry?: boolean }) | undefined;
+    const isRefreshRequest = typeof original?.url === 'string' && original.url.includes('/api/v1/auth/refresh/');
+
+    if (error.response?.status === 401 && original && !original._retry && !isRefreshRequest) {
+      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+      if (!refreshToken) {
+        redirectToLogin();
+        return Promise.reject(error);
+      }
+
       original._retry = true;
       try {
-        const refresh = localStorage.getItem('refresh_token');
-        if (!refresh) throw new Error('No refresh token');
-        const { data } = await axios.post(`${API_BASE_URL}/api/v1/auth/refresh/`, { refresh });
-        localStorage.setItem('access_token', data.access);
-        original.headers.Authorization = `Bearer ${data.access}`;
+        const accessToken = await refreshAccessToken();
+        original.headers = original.headers ?? {};
+        original.headers.Authorization = `Bearer ${accessToken}`;
         return api(original);
       } catch {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        window.location.href = '/login';
+        redirectToLogin();
         return Promise.reject(error);
       }
     }
+
+    if (error.response?.status === 401 && isRefreshRequest) {
+      redirectToLogin();
+    }
+
     return Promise.reject(error);
   }
 );
