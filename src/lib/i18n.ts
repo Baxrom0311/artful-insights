@@ -62,7 +62,7 @@ void i18n
     react: { useSuspense: false },
     partialBundledLanguages: true,
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['localStorage'],
       lookupLocalStorage: LANGUAGE_STORAGE_KEY,
       caches: ['localStorage'],
     },
