@@ -5,7 +5,9 @@
     "type": "Only JPG, PNG, WEBP allowed",
     "size": "File must be under 10MB",
     "credits": "Insufficient credits. Please add more credits.",
-    "failed": "Upload failed"
+    "failed": "Upload failed",
+    "evaluation_failed": "Evaluation failed. Please try again later.",
+    "status_check": "Unable to confirm evaluation status. Refresh the page and try again."
   },
   "drop": {
     "title": "Drag & drop your artwork",

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AppLayout from '@/components/layout/AppLayout';
@@ -40,10 +40,23 @@ const Upload = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [dragOver, setDragOver] = useState(false);
+  const pollTimeoutRef = useRef<number | null>(null);
   const schemeOptions = useMemo(
     () => SCHEME_VALUES.map((value) => ({ value, label: t(`scheme:${value}`) })),
     [t]
   );
+
+  useEffect(() => {
+    return () => {
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+      if (pollTimeoutRef.current !== null) {
+        window.clearTimeout(pollTimeoutRef.current);
+        pollTimeoutRef.current = null;
+      }
+    };
+  }, [preview]);
 
   const handleFile = useCallback((f: File) => {
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(f.type)) {
@@ -82,16 +95,40 @@ const Upload = () => {
       fd.append('evaluation_scheme', evaluationScheme);
       const { data } = await artworksApi.create(fd, language);
 
-      // Poll for completion
       const poll = async () => {
-        const { data: artwork } = await artworksApi.get(String(data.id));
-        if (artwork.status === 'completed' || artwork.status === 'failed') {
-          navigate('/dashboard');
-        } else {
-          setTimeout(poll, 2000);
+        try {
+          const { data: artwork } = await artworksApi.get(String(data.id));
+
+          if (artwork.status === 'completed') {
+            if (pollTimeoutRef.current !== null) {
+              window.clearTimeout(pollTimeoutRef.current);
+              pollTimeoutRef.current = null;
+            }
+            navigate('/dashboard');
+            return;
+          }
+
+          if (artwork.status === 'failed') {
+            if (pollTimeoutRef.current !== null) {
+              window.clearTimeout(pollTimeoutRef.current);
+              pollTimeoutRef.current = null;
+            }
+            setLoading(false);
+            setError(t('upload:error.evaluation_failed'));
+            return;
+          }
+
+          pollTimeoutRef.current = window.setTimeout(poll, 2000);
+        } catch {
+          if (pollTimeoutRef.current !== null) {
+            window.clearTimeout(pollTimeoutRef.current);
+            pollTimeoutRef.current = null;
+          }
+          setLoading(false);
+          setError(t('upload:error.status_check'));
         }
       };
-      poll();
+      await poll();
     } catch (err: unknown) {
       if (axios.isAxiosError(err) && err.response?.status === 402) {
         setError(t('upload:error.credits'));
@@ -146,7 +183,13 @@ const Upload = () => {
               <img src={preview} alt="Preview" className="mx-auto max-h-80 object-contain p-4" />
               <button
                 type="button"
-                onClick={() => { setFile(null); setPreview(''); }}
+                onClick={() => {
+                  if (preview) {
+                    URL.revokeObjectURL(preview);
+                  }
+                  setFile(null);
+                  setPreview('');
+                }}
                 className="absolute right-3 top-3 rounded-full bg-card/90 p-1.5 shadow-card hover:bg-muted"
               >
                 <X className="h-4 w-4" />

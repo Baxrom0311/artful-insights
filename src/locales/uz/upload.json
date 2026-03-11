@@ -5,7 +5,9 @@
     "type": "Faqat JPG, PNG, WEBP formatlariga ruxsat beriladi",
     "size": "Fayl hajmi 10MB dan kichik bo‘lishi kerak",
     "credits": "Kredit yetarli emas. Kreditni to‘ldiring.",
-    "failed": "Yuklash amalga oshmadi"
+    "failed": "Yuklash amalga oshmadi",
+    "evaluation_failed": "Baholash muvaffaqiyatsiz yakunlandi. Keyinroq qayta urinib ko‘ring.",
+    "status_check": "Baholash holatini tekshirib bo‘lmadi. Sahifani yangilab qayta urinib ko‘ring."
   },
   "drop": {
     "title": "Asarni shu yerga olib kelib tashlang",
