@@ -3,6 +3,7 @@ import type {
   AppLanguage,
   AuthTokens,
   LoginCredentials,
+  RegisterResponse,
   RegisterData,
   User,
   UserStats,
@@ -116,7 +117,7 @@ export const authApi = {
   login: (creds: LoginCredentials) =>
     api.post<AuthTokens>('/api/v1/auth/login/', creds),
   register: (data: RegisterData) =>
-    api.post('/api/v1/auth/register/', data),
+    api.post<RegisterResponse>('/api/v1/auth/register/', data),
   logout: (refresh: string) =>
     api.post('/api/v1/auth/logout/', { refresh }),
   getProfile: () =>

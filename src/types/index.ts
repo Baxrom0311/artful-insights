@@ -29,6 +29,13 @@ export interface AuthTokens {
   refresh: string;
 }
 
+export interface RegisterResponse {
+  success: boolean;
+  message: string;
+  user: User;
+  tokens: AuthTokens;
+}
+
 export interface LoginCredentials {
   username: string;
   password: string;
