@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { extractApiErrorMessage } from '@/lib/api-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -36,15 +37,8 @@ const Register = () => {
       await register(form);
       navigate('/dashboard');
     } catch (err: unknown) {
-      if (axios.isAxiosError(err) && err.response?.data && typeof err.response.data === 'object') {
-        const payload = err.response.data as Record<string, unknown>;
-        const msg = Object.values(payload).flatMap((item) => {
-          if (Array.isArray(item)) {
-            return item.map(String);
-          }
-          return [String(item)];
-        }).join(' ');
-        setError(msg || t('auth:registration_failed'));
+      if (axios.isAxiosError(err)) {
+        setError(extractApiErrorMessage(err.response?.data, t('auth:registration_failed')));
       } else {
         setError(t('auth:registration_failed'));
       }

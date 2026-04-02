@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AppLayout from '@/components/layout/AppLayout';
 import { artworksApi } from '@/lib/api';
+import { extractApiErrorMessage } from '@/lib/api-errors';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -133,7 +134,7 @@ const Upload = () => {
       if (axios.isAxiosError(err) && err.response?.status === 402) {
         setError(t('upload:error.credits'));
       } else if (axios.isAxiosError(err)) {
-        setError((err.response?.data as { detail?: string } | undefined)?.detail || t('upload:error.failed'));
+        setError(extractApiErrorMessage(err.response?.data, t('upload:error.failed')));
       } else {
         setError(t('upload:error.failed'));
       }

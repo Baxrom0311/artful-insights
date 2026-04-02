@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { extractApiErrorMessage } from '@/lib/api-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -34,8 +35,7 @@ const Login = () => {
       navigate('/dashboard');
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
-        const detail = (err.response?.data as { detail?: string } | undefined)?.detail;
-        setError(detail || t('auth:invalid_credentials'));
+        setError(extractApiErrorMessage(err.response?.data, t('auth:invalid_credentials')));
       } else {
         setError(t('auth:invalid_credentials'));
       }
