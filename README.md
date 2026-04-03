@@ -31,6 +31,12 @@ The frontend connects to the Django backend at `http://localhost:8000` by defaul
 |----------|---------|-------------|
 | `VITE_API_BASE_URL` | `http://localhost:8000` | Backend API base URL |
 
+Example production env:
+
+```env
+VITE_API_BASE_URL=https://analyst-api.onrender.com
+```
+
 ## Project Structure
 
 ```
@@ -61,4 +67,22 @@ npm run build      # Production build
 npm run preview    # Preview production build
 npm run test       # Run tests
 npm run lint       # ESLint check
+```
+
+## Vercel Deploy
+
+This frontend is ready for Vercel static deployment.
+
+1. Import the `frontend` repository into Vercel.
+2. Keep the default framework preset as `Vite`.
+3. Set `VITE_API_BASE_URL=https://analyst-api.onrender.com`.
+4. Deploy.
+
+`vercel.json` is included to rewrite all SPA routes to `index.html`, so routes like `/dashboard` and `/profile` work on refresh.
+
+After Vercel gives you a domain such as `https://your-app.vercel.app`, update the backend Render env values:
+
+```env
+CORS_ALLOWED_ORIGINS=https://your-app.vercel.app
+CSRF_TRUSTED_ORIGINS=https://your-app.vercel.app
 ```
